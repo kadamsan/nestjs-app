@@ -10,7 +10,7 @@ async function bootstrap() {
   const logger = new Logger('bootstrap');
 
   const app: INestApplication = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
+  const configService: ConfigService = app.get(ConfigService);
   
   app.enableCors();
   app.useGlobalPipes(

@@ -39,3 +39,7 @@ lerna-debug.log*
 .env.development
 .env.staging
 .env.production
+
+# Type ORM logs
+
+ormlogs.log
