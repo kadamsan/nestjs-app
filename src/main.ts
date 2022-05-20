@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpExceptionFilter } from './filter/http-exception.filter';
+import helmet from 'helmet';
 
 declare const module: any;
 
@@ -12,6 +13,7 @@ async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule);
   const configService: ConfigService = app.get(ConfigService);
   
+  app.use(helmet()); //  it must come before other calls to app.use() or setup functions that may call app.use().
   app.enableCors();
   app.useGlobalPipes(
 		new ValidationPipe({
