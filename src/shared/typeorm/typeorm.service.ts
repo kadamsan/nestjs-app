@@ -25,7 +25,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       synchronize: true, // never use TRUE in production!
       cache: {
         ignoreErrors: true,
-        duration: 30000 // 30 seconds
+        duration: 30000, // 30 seconds
       },
       /*cli: {
         entitiesDir: 'src',

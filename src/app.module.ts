@@ -15,18 +15,21 @@ import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
       isGlobal: true,
       cache: true,
       envFilePath: `${process.cwd()}/config/env/.env.${process.env.NODE_ENV}`,
-      load: [configuration]       
+      load: [configuration],
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
   ],
   controllers: [AppController],
-  providers: [AppService, {
-    provide: APP_INTERCEPTOR,
-    useClass: LoggingInterceptor,
-  }],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
 })
 export class AppModule implements NestModule {
-	configure(consumer: MiddlewareConsumer): void {
-		consumer.apply(LoggerMiddleware).forRoutes('*');
-	}
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
 }
