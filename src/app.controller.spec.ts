@@ -15,8 +15,10 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "Hello nest!"', () => {
+      expect(appController.getHello()).toBe(
+        'Hello, nest! A progressive Node.js framework for building efficient, reliable and scalable server-side applications.',
+      );
     });
   });
 });

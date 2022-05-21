@@ -19,6 +19,8 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      .expect(
+        'Hello, nest! A progressive Node.js framework for building efficient, reliable and scalable server-side applications.',
+      );
   });
 });
