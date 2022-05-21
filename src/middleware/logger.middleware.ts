@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  private readonly logger = new Logger('LoggerMiddleware');
+  private readonly logger = new Logger(LoggerMiddleware.name);
 
   use(request: Request, response: Response, next: NextFunction): void {
     const startAt = process.hrtime();

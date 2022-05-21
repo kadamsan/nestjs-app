@@ -25,7 +25,7 @@ const envFilePath: string = getEnvPath(`${__dirname}/shared/config/env`);
         PORT: Joi.number().default(3000),
       }),
     }),
-    //TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
   ],
   controllers: [AppController],
   providers: [

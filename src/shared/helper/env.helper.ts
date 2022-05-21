@@ -3,7 +3,7 @@ import { existsSync } from 'fs';
 import { resolve } from 'path';
 
 export function getEnvPath(dest: string): string {
-  const logger = new Logger('bootstrap');
+  const logger = new Logger('Get Environment');
 
   const env: string | undefined = process.env.NODE_ENV;
   logger.log(`NODE_ENV: ${env}`);
