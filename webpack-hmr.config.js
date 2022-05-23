@@ -1,7 +1,9 @@
-import * as nodeExternals from 'webpack-node-externals'
-import { RunScriptWebpackPlugin } from 'run-script-webpack-plugin'
+// eslint-disable-next-line
+const nodeExternals = require('webpack-node-externals');
+// eslint-disable-next-line
+const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
 
-function hrm (options, webpack) {
+module.exports = function (options, webpack) {
   return {
     ...options,
     entry: ['webpack/hot/poll?100', options.entry],
@@ -20,5 +22,3 @@ function hrm (options, webpack) {
     ],
   };
 };
-
-export { hrm as default }
