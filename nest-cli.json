@@ -6,6 +6,14 @@
     "assets": [
       "shared/config/env/*"
     ],
-    "watchAssets": true
+    "watchAssets": true,
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "introspectComments": true
+        }
+      }
+    ]
   }  
 }

@@ -4,6 +4,7 @@ import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpExceptionFilter } from './filter/http-exception.filter';
 import helmet from 'helmet';
+import { setupSwagger } from './shared/swagger';
 
 declare const module: any;
 
@@ -22,7 +23,10 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  setupSwagger(app);
 
   await app.listen(configService.get<number>('PORT'));
 
@@ -30,6 +34,15 @@ async function bootstrap() {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
+  // Log current url of app and documentation
+  let baseUrl = app.getHttpServer().address().address;
+  if (baseUrl === '0.0.0.0' || baseUrl === '::') {
+    baseUrl = 'localhost';
+  }
+  // eslint-disable-next-line prettier/prettier
+  const url = `http://${baseUrl}:${configService.get<number>('PORT')}`;
+  logger.log(`Listening to ${url}`);
+  logger.log(`API Documentation available at ${url}/docs`);
   logger.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
