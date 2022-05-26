@@ -22,7 +22,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       entities: ['dist/**/*.entity.{ts,js}'],
       migrations: ['dist/migrations/*.{ts,js}'],
       migrationsTableName: 'typeorm_migrations',
-      migrationsRun: false, // alternative, use CLI and run migration:run command.
+      migrationsRun: true, // alternative, use CLI and run migration:run command.
       logger: 'file',
       logging: true,
       synchronize:
