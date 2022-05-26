@@ -28,7 +28,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       synchronize:
         this.configService.get<string>('NODE_ENV') === 'production'
           ? false
-          : false, // one should never use TRUE in production!
+          : true, // one should never use TRUE in production!
       cache: {
         ignoreErrors: true,
         duration: 30000, // 30 seconds
