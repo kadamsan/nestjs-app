@@ -10,6 +10,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { getEnvPath } from './shared/helper/env.helper';
 import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/shared/config/env`);
 
@@ -27,6 +28,7 @@ const envFilePath: string = getEnvPath(`${__dirname}/shared/config/env`);
       }),
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
+    AuthModule,
     UserModule,
   ],
   controllers: [AppController],
