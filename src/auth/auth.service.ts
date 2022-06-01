@@ -1,4 +1,9 @@
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
@@ -13,12 +18,15 @@ export class AuthService {
 
   constructor(
     private readonly userService: UserService,
-    private readonly configService: ConfigService,
+    @Inject(ConfigService) private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    this.logger.log(this.configService.get('JWT_SECRET_KEY'));
+    this.logger.log(
+      'JWT_SECRET_KEY ->',
+      this.configService.get('JWT_SECRET_KEY'),
+    );
     try {
       const user: User = await this.userService.findUserByEmail(email);
 

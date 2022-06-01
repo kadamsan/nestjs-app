@@ -6,7 +6,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt/jwt.strategy';
 import { LocalStrategy } from './strategy/local/local.strategy';
-import { ConfigService } from '@nestjs/config/dist';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { constants } from './strategy/jwt/constants';
 
 @Module({
@@ -14,7 +14,7 @@ import { constants } from './strategy/jwt/constants';
     UserModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
-      // imports: [ConfigModule],
+      imports: [ConfigModule],
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       useFactory: async (configService: ConfigService) => {
         return {

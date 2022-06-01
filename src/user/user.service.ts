@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,7 +12,7 @@ export class UserService {
 
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
-    private readonly configService: ConfigService,
+    @Inject(ConfigService) private readonly configService: ConfigService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -38,7 +38,10 @@ export class UserService {
   }
 
   async findUserByEmail(email: string): Promise<User | undefined> {
-    this.logger.log(this.configService.get('JWT_SECRET_KEY'));
+    this.logger.log(
+      'JWT_SECRET_KEY ->',
+      this.configService.get('JWT_SECRET_KEY'),
+    );
     return await this.usersRepository.findOne({
       where: {
         email: email,

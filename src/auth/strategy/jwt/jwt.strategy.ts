@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
@@ -8,15 +8,18 @@ import { JwtPayload } from './jwt.payload';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+  private readonly logger = new Logger(JwtStrategy.name);
+
   constructor(
     private readonly authService: AuthService,
+    @Inject(ConfigService)
     private readonly configService: ConfigService,
   ) {
-    console.log('JWT_SECRET_KEY', configService.get('JWT_SECRET_KEY'));
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: constants.secret,
     });
+    console.log('JWT_SECRET_KEY', configService.get<string>('JWT_SECRET_KEY'));
   }
 
   async validate(payload: JwtPayload): Promise<any> {
