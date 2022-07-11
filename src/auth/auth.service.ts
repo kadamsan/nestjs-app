@@ -10,7 +10,6 @@ import { UserService } from 'src/user/user.service';
 import { JwtPayload } from './strategy/jwt/jwt.payload';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { constants } from './strategy/jwt/constants';
 
 @Injectable()
 export class AuthService {
@@ -23,10 +22,6 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    this.logger.log(
-      'JWT_SECRET_KEY ->',
-      this.configService.get('JWT_SECRET_KEY'),
-    );
     try {
       const user: User = await this.userService.findUserByEmail(email);
 
@@ -63,7 +58,7 @@ export class AuthService {
       sub: user.id.toString(),
     };
     return {
-      expiresIn: constants.expiresIn,
+      expiresIn: this.configService.get<string>('JWT_EXPIRATION_TIME'),
       accessToken: this.jwtService.sign({ ...payload }),
     };
   }

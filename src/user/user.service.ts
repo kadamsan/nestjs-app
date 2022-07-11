@@ -38,10 +38,6 @@ export class UserService {
   }
 
   async findUserByEmail(email: string): Promise<User | undefined> {
-    this.logger.log(
-      'JWT_SECRET_KEY ->',
-      this.configService.get('JWT_SECRET_KEY'),
-    );
     return await this.usersRepository.findOne({
       where: {
         email: email,

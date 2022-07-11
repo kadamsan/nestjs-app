@@ -4,7 +4,7 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "assets": [
-      "shared/config/env/*"
+      {"include": "shared/config/env/*", "outDir": "./dist/src", "watchAssets": true}
     ],
     "watchAssets": true,
     "plugins": [

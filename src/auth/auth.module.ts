@@ -7,7 +7,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt/jwt.strategy';
 import { LocalStrategy } from './strategy/local/local.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { constants } from './strategy/jwt/constants';
 
 @Module({
   imports: [
@@ -15,12 +14,11 @@ import { constants } from './strategy/jwt/constants';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       useFactory: async (configService: ConfigService) => {
         return {
-          secret: constants.secret,
+          secret: configService.get<string>('JWT_SECRET_KEY'),
           signOptions: {
-            expiresIn: constants.expiresIn,
+            expiresIn: configService.get<string>('JWT_EXPIRATION_TIME'),
           },
         };
       },

@@ -9,6 +9,12 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   private readonly configService: ConfigService;
 
   public createTypeOrmOptions(): TypeOrmModuleOptions {
+    this.logger.log(
+      `Application DATABASE_HOST -> ${this.configService.get<string>(
+        'DATABASE_HOST',
+      )}`,
+    );
+
     return {
       type: 'postgres',
       host: this.configService.get<string>('DATABASE_HOST') || 'localhost',

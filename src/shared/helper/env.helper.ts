@@ -15,5 +15,6 @@ export function getEnvPath(dest: string): string {
     filePath = fallback;
   }
 
+  logger.log(`filePath : ${filePath}`);
   return filePath;
 }
