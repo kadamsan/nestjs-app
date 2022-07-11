@@ -25,6 +25,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       password:
         this.configService.get<string>('DATABASE_PASSWORD') || 'postgres',
       autoLoadEntities: true,
+      keepConnectionAlive: true,
       entities: ['dist/**/*.entity.{ts,js}'],
       migrations: ['dist/migrations/*.{ts,js}'],
       migrationsTableName: 'typeorm_migrations',

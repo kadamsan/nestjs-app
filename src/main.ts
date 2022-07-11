@@ -30,11 +30,6 @@ async function bootstrap() {
 
   await app.listen(configService.get<number>('PORT'));
 
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
-
   if (configService.get<string>('NODE_ENV') === 'development') {
     // Log current url of app and documentation
     let baseUrl = app.getHttpServer().address().address;
@@ -47,5 +42,10 @@ async function bootstrap() {
   }
   logger.log(`API Documentation available at ${await app.getUrl()}/docs`);
   logger.log(`Application is running on: ${await app.getUrl()}`);
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();
