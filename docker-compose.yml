@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+    development:
+        container_name: nestjs_api_dev
+        image: nestjs-api-dev:1.0.0
+        build:
+            context: .
+            target: development
+            dockerfile: ./Dockerfile
+            args:
+              - NODE_ENV=development
+              - DATABASE_HOST=postgres
+        env_file:
+            - ./src/shared/config/env/.env.development     
+        ports:
+            - 3000:3000
+            - 9229:9229
+        networks:
+            - nesjs-network
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: unless-stopped
+        depends_on:
+            - postgres
+            - pgadmin
+    staging:
+        container_name: nestjs_api_stage
+        image: nestjs-api-stage:1.0.0
+        build:
+            context: .
+            target: staging
+            dockerfile: ./Dockerfile
+            args:
+              - NODE_ENV=staging
+        env_file:
+            - ./src/shared/config/env/.env.staging
+        ports:
+            - 3001:3001
+        networks:
+            - nesjs-network
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: unless-stopped
+        depends_on:
+            - postgres
+            - pgadmin
+    postgres:
+        container_name: postgres
+        image: postgres:latest        
+        environment:
+          POSTGRES_USER: ${DATABASE_USERNAME}
+          POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+        ports:
+          - 5432:5432
+        networks:
+            - nesjs-network
+        volumes:
+          - postgresdb:/var/lib/postgresql/data
+        restart: unless-stopped
+    pgadmin:
+        container_name: pgadmin
+        image: dpage/pgadmin4:latest
+        environment:
+          - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+          - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+        ports:
+          - "5050:80"
+        networks:
+            - nesjs-network
+        restart: unless-stopped
+
+networks:
+    nesjs-network:
+volumes:
+    postgresdb:

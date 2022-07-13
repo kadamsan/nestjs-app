@@ -36,9 +36,11 @@ lerna-debug.log*
 
 # .env files
 
+.env
 .env.development
 .env.staging
 .env.production
+.env.docker
 
 # Type ORM
 
