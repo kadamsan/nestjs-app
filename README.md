@@ -46,9 +46,9 @@ $ npm run start:prod
 ```
 ## Running the app using docker
 
-[Docker](https://docs.docker.com/) Docker is an open platform for developing, shipping, and running applications.
+[Docker](https://docs.docker.com/) is an open platform for developing, shipping, and running applications.
 
-The Nestjs docker applcation is also spining up local Postgres server with docker-compose.
+The applcation is also spining up local Postgres server with docker-compose.
 
 ```bash
 # development
