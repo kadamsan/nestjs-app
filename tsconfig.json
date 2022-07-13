@@ -21,5 +21,6 @@
       "node",
       "jest"
     ]
-  }
+  },
+  "include": ["src/**/*"]
 }
