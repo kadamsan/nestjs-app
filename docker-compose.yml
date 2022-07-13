@@ -10,9 +10,9 @@ services:
             dockerfile: ./Dockerfile
             args:
               - NODE_ENV=development
-              - DATABASE_HOST=postgres
         env_file:
-            - ./src/shared/config/env/.env.development     
+            - ./src/shared/config/env/.env.development  
+        command: npm run start:dev   
         ports:
             - 3000:3000
             - 9229:9229
@@ -38,6 +38,28 @@ services:
             - ./src/shared/config/env/.env.staging
         ports:
             - 3001:3001
+        networks:
+            - nesjs-network
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: unless-stopped
+        depends_on:
+            - postgres
+            - pgadmin
+    production:
+        container_name: nestjs_api_prod
+        image: nestjs-api-prod:1.0.0
+        build:
+            context: .
+            target: production
+            dockerfile: ./Dockerfile
+            args:
+              - NODE_ENV=production
+        env_file:
+            - ./src/shared/config/env/.env.production
+        ports:
+            - 3002:3002
         networks:
             - nesjs-network
         volumes:
