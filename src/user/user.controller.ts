@@ -9,6 +9,8 @@ import {
   UseGuards,
   Logger,
   Inject,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -19,6 +21,7 @@ import { ConfigService } from '@nestjs/config';
 
 @ApiTags('users')
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   private readonly logger = new Logger(UserController.name);
 
