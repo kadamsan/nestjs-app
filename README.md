@@ -73,6 +73,21 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+## Typeorm Migrations
+
+[Typeorm Migrations](https://typeorm.io/migrations) Please refer to understand migrations
+
+If any changes in database i.e entities, please execute typeorm migration:generate it will generate migration scripts. 
+
+```bash
+# generate scripts
+$ npm run typeorm:migration:generate
+
+# run scripts
+$ npm run typeorm:migration:run
+
+```
+
 
 ## Support
 
